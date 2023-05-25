@@ -4,35 +4,30 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import useAxios
     from '../../hooks/useAxios';
 import { LOGIN_URL, LoginResponseRrops } from '../../api/config';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
+import { UserContext } from '../../hooks/auth';
 
 type Props = {}
 
 const Login = (props: Props) => {
+    const { user, login, isLoading } = useContext(UserContext);
+
     const headers = {
         'content-type': 'application/x-www-form-urlencoded'
     }
     const navigate = useNavigate()
-    const { fetchData, response, isLoading: topIsLoading } = useAxios<LoginResponseRrops>()
-    const { auth, setAuthLocalStorage } = useAuth()
     const onFinish = (values: any) => {
-        fetchData('POST', LOGIN_URL, values, headers)
-        console.log('Received values of form: ', values);
+        login(values.username, values.password)
+        console.log(user)
     };
+
     useEffect(() => {
-        if (response?.access_token) {
-            const decodedToken: any = decodeJwt(response.access_token);
-            setAuthLocalStorage(
-                response.access_token,
-                response.username,
-                decodedToken.permissions,
-            )
+        console.log(user)
+        if(user?.username) {
             navigate('/home')
         }
-
-    }, [response])
+    }, [user])
 
     return (
         <Layout>
@@ -83,7 +78,7 @@ const Login = (props: Props) => {
                         </AntdForm.Item>
 
                         <AntdForm.Item>
-                            <Button type="primary" htmlType="submit" className="login-form-button">
+                            <Button loading={isLoading} type="primary" htmlType="submit" className="login-form-button">
                                 Log in
                             </Button>
                             Or <a href="">register now!</a>

@@ -55,7 +55,6 @@ const useAxios = <T,>(): UseAxiosReturn<T> => {
   ) => {
 
     setIsLoading(true);
-    console.log(headers);
     const axiosConfig = {
       method: method,
       url: url,
