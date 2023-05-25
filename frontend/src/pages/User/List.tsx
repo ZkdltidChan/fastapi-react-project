@@ -2,6 +2,7 @@ import useAxios from '../../hooks/useAxios';
 import { Table } from '../../components/Admin/Table/Table';
 import { USERS_URL, UsersResponseProps, ListResponseProps } from '../../api/config';
 import { useEffect } from 'react';
+import { render } from '@testing-library/react';
 type Props = {}
 
 const UserList = (props: Props) => {
@@ -40,7 +41,11 @@ const UserList = (props: Props) => {
                         title: 'ID',
                         dataIndex: 'id',
                         key: 'id',
-                        width: '10%'
+                        width: '10%',
+                        // onCell: (record) => ({ onClick: () => { console.log(record) }}),
+                        // render: (text: st
+                        //     ring, record: any) => { text.toString()},
+                        // // scopedSlots: { customRender: 'imageView' },
                     },
                     {
                         title: 'Email',
@@ -64,13 +69,19 @@ const UserList = (props: Props) => {
                         title: 'Is Active',
                         dataIndex: 'is_active',
                         key: 'is_active',
-                        width: '10%'
+                        width: '10%',
+                        render(value, record, index) {
+                            return <>{value.toString()}</>
+                        },
                     },
                     {
                         title: 'Is Superuser',
                         dataIndex: 'is_superuser',
                         key: 'is_superuser',
-                        width: '10%'
+                        width: '10%',
+                        render(value, record, index) {
+                            return <>{value.toString()}</>
+                        },
                     }
                 ]}
             />

@@ -21,7 +21,10 @@ export type SignupResponseProps = {
 
 export const LOGIN_URL = '/api/token'
 export type LoginResponseRrops = {
+    username: string
+    role: string
     access_token: string
+    // refresh_token: string //TODO
     token_type: string
 }
 

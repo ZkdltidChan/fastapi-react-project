@@ -29,11 +29,19 @@ async def login(
     else:
         permissions = "user"
     access_token = security.create_access_token(
-        data={"sub": user.email, "permissions": permissions},
+        data={
+            "sub": user.email, 
+            "permissions": permissions,
+            },
         expires_delta=access_token_expires,
     )
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {
+        "access_token": access_token, 
+        "token_type": "bearer",
+        "id": user.id,
+        "username": user.email,
+        }
 
 
 @r.post("/signup")

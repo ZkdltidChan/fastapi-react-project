@@ -24,26 +24,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-
-const menuItems: MenuProps['items'] = [
-  {
-    key: 'home',
-    label: <Link to="/home"> Home </Link>,
-  },
-  {
-    key: 'users',
-    label: <Link to="/users"> Users </Link>,
-  },
-  {
-    key: 'login',
-    label: <Link to="/login"> Login </Link>,
-  },
-  {
-    key: 'signup',
-    label: <Link to="/signup"> Signup </Link>,
-  },
-];
-
+import NavBar from "./components/NavBar/NavBar";
 
 export const App = () => {
   const [current, setCurrent] = useState('home');
@@ -56,10 +37,7 @@ export const App = () => {
     <ConfigProvider>
 
       <BrowserRouter>
-        <Header>
-          <div className="demo-logo" />
-          <Menu theme="dark" onClick={onClick} selectedKeys={[current]} mode="horizontal" items={menuItems} />
-        </Header>
+        <NavBar/>
         <Content>
           <Routes>
             <Route path="/one" element={<Home />} />

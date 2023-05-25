@@ -5,6 +5,7 @@ import {
     Select,
     Table as AntdTable,
     Typography,
+    Space,
 } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -41,11 +42,12 @@ export const Table: React.FC<TableProps> = (props) => {
     return (
         <>
             {/* {title && (<Typography.Title>{title}</Typography.Title>)} */}
-            <Row className='for-header'>
-                <Row>
+            <br />
+            <Row justify='center'>
+                <Space align="center" >
                     {
                         hasSort && sortTypes && (
-                            <Select>
+                            <Select style={{ width: '100px' }}>
                                 {
                                     sortTypes.map((sortType, index) => {
                                         return (
@@ -69,13 +71,14 @@ export const Table: React.FC<TableProps> = (props) => {
                             </Button>
                         )
                     }
-                </Row>
+                </Space>
             </Row>
+            <br />
             <AntdTable
                 columns={columns}
                 dataSource={dataSource}
                 loading={isLoading}
-                // pagination={isPagination}
+            // pagination={isPagination}
 
             />
         </>
